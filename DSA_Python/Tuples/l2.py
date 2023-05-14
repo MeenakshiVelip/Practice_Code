@@ -1,0 +1,8 @@
+tup=(1,2,3,4,5)
+print(tup)
+lis=list(tup)
+print(lis)
+lis.append(6)
+print(lis)
+tup=tuple(lis)
+print(tup)
