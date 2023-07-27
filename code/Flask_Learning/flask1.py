@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -8,6 +8,8 @@ def Hello_World():
 
 @app.route("/Products")
 def Products():
-    return "This is my Product"
+    #return "This is my Product"
+    return render_template('index.html')
 
 app.run(debug=True)    
+
