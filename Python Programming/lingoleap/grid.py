@@ -8,7 +8,7 @@ def maxMoves(grid):
         # Try all possible moves
         for newRow, newCol in [(row - 1, col + 1), (row, col + 1), (row + 1, col + 1)]:
             if 0 <= newRow < m and 0 <= newCol < n and grid[newRow][newCol] > current_val:
-                moves = max(moves, 1 + dfs(newRow, newCol))s
+                moves = max(moves, 1 + dfs(newRow, newCol))
         return moves
     
     m, n = len(grid), len(grid[0])
