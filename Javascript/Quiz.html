@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shuffled Quiz</title>
+</head>
+<body>
+  <h1>Shuffled Quiz</h1>
+  <div id="question-container">
+    <p id="question"></p>
+    <div id="options">
+      <button onclick="checkAnswer('Yes')">Yes</button>
+      <button onclick="checkAnswer('No')">No</button>
+    </div>
+    <button onclick="showRandomQuestion()">Next Question</button>
+    <p id="score" style="display: none;">Your Score: <span id="user-score">0</span></p>
+    <button onclick="showResults()" style="display: none;">Show Results</button>
+    <button onclick="resetQuiz()" style="display: none;">Restart Quiz</button>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Is the sky blue?",
+        answer: "Yes"
+      },
+      {
+        question: "Is the sun hot?",
+        answer: "Yes"
+      },
+      {
+        question: "Is the moon made of cheese?",
+        answer: "No"
+      },
+      {
+        question: "Are oranges purple?",
+        answer: "No"
+      },
+      // Add more questions here
+    ];
+
+    let shuffledQuestions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    function shuffleArray(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function startQuiz() {
+      shuffledQuestions = shuffleArray(questions.slice());
+      showRandomQuestion();
+    }
+
+    function showRandomQuestion() {
+      if (currentQuestionIndex < shuffledQuestions.length) {
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+
+        const currentQuestion = shuffledQuestions[currentQuestionIndex];
+        questionElement.textContent = currentQuestion.question;
+
+        // Display the Yes/No buttons
+        optionsElement.style.display = 'block';
+      } else {
+        displayScore();
+      }
+    }
+
+    function checkAnswer(selectedOption) {
+      const currentQuestion = shuffledQuestions[currentQuestionIndex];
+
+      if (selectedOption === currentQuestion.answer) {
+        alert("Correct!");
+        score++;
+      } else {
+        alert("Incorrect!");
+      }
+
+      currentQuestionIndex++;
+      showRandomQuestion(); // Show the next question or display score
+    }
+
+    function displayScore() {
+      const scoreElement = document.getElementById('user-score');
+      scoreElement.textContent = score;
+
+      document.getElementById('options').style.display = 'none';
+      document.getElementById('score').style.display = 'block';
+      document.getElementById('user-score').style.display = 'block';
+      document.querySelector('button[onclick="showRandomQuestion()"]').style.display = 'none';
+      document.querySelector('button[onclick="resetQuiz()"]').style.display = 'block';
+      document.querySelector('button[onclick="showResults()"]').style.display = 'block';
+    }
+
+    function showResults() {
+      displayScore();
+      document.querySelector('button[onclick="showResults()"]').style.display = 'none';
+    }
+
+    function resetQuiz() {
+      shuffledQuestions = [];
+      currentQuestionIndex = 0;
+      score = 0;
+
+      document.getElementById('options').style.display = 'block';
+      document.getElementById('score').style.display = 'none';
+      document.getElementById('user-score').style.display = 'none';
+      document.querySelector('button[onclick="showRandomQuestion()"]').style.display = 'block';
+      document.querySelector('button[onclick="resetQuiz()"]').style.display = 'none';
+      document.querySelector('button[onclick="showResults()"]').style.display = 'none';
+
+      startQuiz(); // Restart the quiz
+    }
+
+    // Initially hide the options until the quiz starts
+    document.getElementById('options').style.display = 'none';
+
+    // Start the quiz on page load
+    startQuiz();
+  </script>
+</body>
+</html>
