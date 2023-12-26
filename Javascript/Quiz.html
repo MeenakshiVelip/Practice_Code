@@ -2,16 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shuffled Quiz</title>
+  <title>Shuffled Quiz with Radio Buttons</title>
 </head>
 <body>
-  <h1>Shuffled Quiz</h1>
+  <h1>Shuffled Quiz with Radio Buttons</h1>
   <div id="question-container">
     <p id="question"></p>
-    <div id="options">
-      <button onclick="checkAnswer('Yes')">Yes</button>
-      <button onclick="checkAnswer('No')">No</button>
-    </div>
+    <form id="options">
+      <label>
+        <input type="radio" name="answer" value="Yes"> Yes
+      </label>
+      <label>
+        <input type="radio" name="answer" value="No"> No
+      </label>
+    </form>
+    <button onclick="checkAnswer()">Submit Answer</button>
     <button onclick="showRandomQuestion()">Next Question</button>
     <p id="score" style="display: none;">Your Score: <span id="user-score">0</span></p>
     <button onclick="showResults()" style="display: none;">Show Results</button>
@@ -29,7 +34,7 @@
         answer: "Yes"
       },
       {
-        question: "Is the moon made of cheese?",
+        question: "Do you know about cyber security?",
         answer: "No"
       },
       {
@@ -60,25 +65,41 @@
         const currentQuestion = shuffledQuestions[currentQuestionIndex];
         questionElement.textContent = currentQuestion.question;
 
-        // Display the Yes/No buttons
+        // Display the Yes/No radio buttons
         optionsElement.style.display = 'block';
+        optionsElement.innerHTML = `
+          <label>
+            <input type="radio" name="answer" value="Yes"> Yes
+          </label>
+          <label>
+            <input type="radio" name="answer" value="No"> No
+          </label>
+        `;
       } else {
         displayScore();
       }
     }
 
-    function checkAnswer(selectedOption) {
-      const currentQuestion = shuffledQuestions[currentQuestionIndex];
+    function checkAnswer() {
+      const optionsElement = document.getElementById('options');
+      const selectedOption = optionsElement.querySelector('input[name="answer"]:checked');
 
-      if (selectedOption === currentQuestion.answer) {
-        alert("Correct!");
-        score++;
+      if (selectedOption) {
+        const currentQuestion = shuffledQuestions[currentQuestionIndex];
+        const userAnswer = selectedOption.value;
+
+        if (userAnswer === currentQuestion.answer) {
+          alert("Correct!");
+          score++;
+        } else {
+          alert("Incorrect!");
+        }
+
+        currentQuestionIndex++;
+        showRandomQuestion(); // Show the next question or display score
       } else {
-        alert("Incorrect!");
+        alert("Please select an answer.");
       }
-
-      currentQuestionIndex++;
-      showRandomQuestion(); // Show the next question or display score
     }
 
     function displayScore() {
