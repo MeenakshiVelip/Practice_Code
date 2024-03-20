@@ -30,18 +30,18 @@
 // console.log("a*b = ", a*b);
 // console.log("a%b = ", a%b);
 // console.log("a-b = ", a-b);
-let x = prompt("enter your number");
-let rev = 0;
-let temp = x;
-let rem;
-while(x > 0) {
-    rem = x%10;
-    rev = (rev*10)+rem;
-    x = Math.floor(x/10);
-}
-if(rev == temp){
-    console.log("palindrome");
-} else {
-    console.log("not a palindrome");
-}
+// let x = prompt("enter your number");
+// let rev = 0;
+// let temp = x;
+// let rem;
+// while(x > 0) {
+//     rem = x%10;
+//     rev = (rev*10)+rem;
+//     x = Math.floor(x/10);
+// }
+// if(rev == temp){
+//     console.log("palindrome");
+// } else {
+//     console.log("not a palindrome");
+// }
 
